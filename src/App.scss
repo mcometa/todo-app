@@ -1,0 +1,13 @@
+
+
+.container {
+  min-width: 320px;
+  max-width: 600px;
+  display: flex;
+  margin: 0 auto;
+  padding-top: 2em;
+
+  @media only screen and (min-width: 600px) {
+    background: red;
+  }
+}
