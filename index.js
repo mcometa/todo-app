@@ -1,1 +1,1 @@
-console.log(__dirname)
+require('./src/index')
