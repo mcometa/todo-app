@@ -1,13 +1,61 @@
 
 
 .container {
-  min-width: 320px;
-  max-width: 600px;
+  max-width: 480px;
   display: flex;
+  // flex: 1;
+  flex-direction: column;
   margin: 0 auto;
-  padding-top: 2em;
+  padding: 10px;
 
-  @media only screen and (min-width: 600px) {
-    background: red;
+  // @media only screen and (min-width: 600px) {
+  //   background: red;
+  // }
+}
+
+.appTitle {
+  text-align: center;
+}
+
+.todoInput {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  input {
+    width: 80%;
+    margin-right: 10px;
+  }
+
+  button {
+    width: 20%;
+  }
+}
+
+.todoItemsContainer,
+.todoContainerActions {
+  padding: 10px;
+  margin-bottom: 10px;
+  background: #eee;
+  border-radius: 6px;
+}
+
+.todoItem {
+  display: flex;
+  align-items: center;
+  margin: 0 0 10px;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  p {
+    width: 100%;
+    margin: 0 10px;
+  }
+
+  .tick {
+    height: 24px;
+    width: 24px;
   }
 }
