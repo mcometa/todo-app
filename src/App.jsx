@@ -1,42 +1,45 @@
 import React, { useState } from 'react'
 import clsx from 'clsx'
+import moment from 'moment'
 
 import classes from './App.scss'
 
+const mockTodos = [
+  {
+    id: 1,
+    todo: 'Learn React hooks',
+    done: false,
+    createdAt: '2021-08-22T13:50:29.971Z',
+  },
+  {
+    id: 2,
+    todo: 'Learn webpack',
+    done: true,
+    createdAt: '2021-08-22T13:50:29.971Z',
+  },
+  {
+    id: 3,
+    todo: 'Feed the cats',
+    done: false,
+    createdAt: '2021-08-22T13:50:29.971Z',
+  },
+  {
+    id: 4,
+    todo: 'Pack things',
+    done: false,
+    createdAt: '2021-08-22T13:50:29.971Z',
+  },
+  {
+    id: 5,
+    todo: 'Shop for furnitures',
+    done: true,
+    createdAt: '2021-08-22T13:50:29.971Z',
+  },
+]
+
 const App = () => {
   const [todo, setTodo] = useState('')
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      todo: 'Learn React hooks',
-      done: false,
-      created_at: '2021-08-22T13:50:29.971Z',
-    },
-    {
-      id: 2,
-      todo: 'Learn webpack',
-      done: true,
-      created_at: '2021-08-22T13:50:29.971Z',
-    },
-    {
-      id: 3,
-      todo: 'Feed the cats',
-      done: false,
-      created_at: '2021-08-22T13:50:29.971Z',
-    },
-    {
-      id: 4,
-      todo: 'Pack things',
-      done: false,
-      created_at: '2021-08-22T13:50:29.971Z',
-    },
-    {
-      id: 5,
-      todo: 'Shop for furnitures',
-      done: true,
-      created_at: '2021-08-22T13:50:29.971Z',
-    },
-  ])
+  const [todos, setTodos] = useState(mockTodos)
 
   const handleInputTodoOnChange = (e) => setTodo(e.currentTarget.value)
 
@@ -45,10 +48,10 @@ const App = () => {
       setTodo('')
       return setTodos([
         {
-          id: Math.random() * 100,
+          id: Math.ceil(Math.random() * 100),
           todo,
           done: false,
-          created_at: new Date(),
+          createdAt: new Date(),
         },
         ...todos,
       ])
@@ -65,13 +68,23 @@ const App = () => {
           id: Math.random() * 100,
           todo,
           done: false,
-          created_at: new Date(),
+          createdAt: new Date(),
         },
         ...todos,
       ])
     }
 
     return false
+  }
+
+  const handleDeleteAll = () => setTodos([])
+
+  const handleTickOnChange = (id) => {
+    console.log('tick the item', id)
+  }
+
+  const handleDeleteTodoItem = (id) => {
+    setTodos(todos.filter((item) => item.id !== id))
   }
 
   return (
@@ -90,17 +103,35 @@ const App = () => {
       </div>
       <div>
         <div className={classes.todoItemsContainer}>
-          {todos.length === 0 && <p>No data found.</p>}
+          {todos.length === 0 && <p className={classes.noData}>No data found.</p>}
           {todos.map((item) => (
             <div key={item.id} className={classes.todoItem}>
-              <input className={classes.tick} checked={item.done} type="checkbox" readOnly />
-              <p className={clsx(item.done && classes.done)}>{item.todo}</p>
-              <button type="submit">x</button>
+              <input
+                onChange={() => handleTickOnChange(item.id)}
+                className={classes.tick}
+                checked={item.done}
+                type="checkbox"
+                readOnly
+              />
+              <p className={clsx(item.done && classes.done)}>
+                <span>{item.todo}</span>
+                <small>{moment(item.createdAt).format('DD-MMM-YYYY HH:MM')}</small>
+              </p>
+
+              <button
+                className={classes.deleteSingleButton}
+                onClick={() => handleDeleteTodoItem(item.id)}
+                type="submit"
+              >
+                &times;
+              </button>
             </div>
           ))}
         </div>
         <div className={classes.todoContainerActions}>
-          <button type="submit">delete all</button>
+          <button disabled={!todos.length} onClick={handleDeleteAll} type="submit">
+            delete all
+          </button>
         </div>
       </div>
     </div>

@@ -42,7 +42,7 @@
 
 .todoItem {
   display: flex;
-  align-items: center;
+  align-items: start;
   margin: 0 0 10px;
 
   &:last-child {
@@ -52,10 +52,17 @@
   p {
     width: 100%;
     margin: 0 10px;
+    display: flex;
+    flex-direction: column;
 
     &.done {
       text-decoration: line-through;
       opacity: 0.2;
+    }
+
+    small {
+      font-size: 0.6em;
+      opacity: 0.6;
     }
   }
 
@@ -63,4 +70,12 @@
     height: 24px;
     width: 24px;
   }
+}
+
+.noData {
+  text-align: center;
+}
+
+.deleteSingleButton {
+
 }
