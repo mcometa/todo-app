@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
 import moment from 'moment'
 
@@ -40,6 +40,7 @@ const mockTodos = [
 const App = () => {
   const [todo, setTodo] = useState('')
   const [todos, setTodos] = useState(mockTodos)
+  const [isAllDone, setIsAllDone] = useState(false)
 
   const handleInputTodoOnChange = (e) => setTodo(e.currentTarget.value)
 
@@ -80,12 +81,34 @@ const App = () => {
   const handleDeleteAll = () => setTodos([])
 
   const handleTickOnChange = (id) => {
-    console.log('tick the item', id)
+    setTodos(
+      todos.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            done: true,
+          }
+        }
+
+        return item
+      })
+    )
   }
 
   const handleDeleteTodoItem = (id) => {
     setTodos(todos.filter((item) => item.id !== id))
   }
+
+  useEffect(() => {
+    // const isDone = (value) => value === true
+    const areAllTodosDone = todos.every((item) => item.done === true)
+
+    if (areAllTodosDone) {
+      setIsAllDone(true)
+    }
+
+    console.log(areAllTodosDone, todos.length)
+  })
 
   return (
     <div className={classes.container}>
@@ -101,6 +124,12 @@ const App = () => {
           add
         </button>
       </div>
+      {todos.length > 0 && isAllDone && (
+        <div className={classes.cheer}>
+          Congratulations! You have nothing to do today. Go ahead and watch your favorite Netflix
+          series or go play your favorite mobile game!
+        </div>
+      )}
       <div>
         <div className={classes.todoItemsContainer}>
           {todos.length === 0 && <p className={classes.noData}>No data found.</p>}
