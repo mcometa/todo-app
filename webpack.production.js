@@ -30,7 +30,7 @@ module.exports = {
   output: {
     filename: 'main.bundle.js',
     path: path.resolve('dist'),
-    publicPath: '/',
+    publicPath: './assets/',
   },
   module: {
     rules: [
