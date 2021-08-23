@@ -3,17 +3,16 @@
   "version": "1.0.0",
   "main": "index.js",
   "author": "Marc Cometa <marc@mcometa.com>",
+  "homepage": "http://mcometa.github.io/todo-app",
   "license": "MIT",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf dist && webpack --mode development",
-    "start": "nodemon server/app.js",
-    "start:app": "cross-env NODE_ENV=development webpack serve --config ./webpack.config.js ",
+    "build": "rm -rf dist && cross-env NODE_ENV=production webpack --config ./webpack.config.js",
+    "start:dev": "cross-env NODE_ENV=development webpack serve --config ./webpack.config.js ",
     "lint": "eslint --ext .js,.jsx ."
   },
   "dependencies": {
     "clsx": "^1.1.1",
-    "express": "^4.17.1",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
@@ -21,10 +20,12 @@
   "devDependencies": {
     "@babel/core": "^7.15.0",
     "@babel/preset-react": "^7.14.5",
+    "autoprefixer": "^10.3.2",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "cross-env": "^7.0.3",
     "css-loader": "^6.2.0",
+    "css-minimizer-webpack-plugin": "^3.0.2",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-config-prettier": "^8.3.0",
@@ -35,11 +36,13 @@
     "eslint-plugin-react": "^7.24.0",
     "html-loader": "^2.1.2",
     "html-webpack-plugin": "^5.3.2",
-    "nodemon": "^2.0.12",
+    "mini-css-extract-plugin": "^2.2.0",
+    "postcss-loader": "^6.1.1",
     "prettier": "^2.3.2",
     "sass": "^1.38.0",
     "sass-loader": "^12.1.0",
     "style-loader": "^3.2.1",
+    "terser-webpack-plugin": "^5.1.4",
     "webpack": "^5.50.0",
     "webpack-cli": "^4.8.0",
     "webpack-dev-server": "^3.11.2"
