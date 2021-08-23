@@ -100,14 +100,13 @@ const App = () => {
   }
 
   useEffect(() => {
-    // const isDone = (value) => value === true
     const areAllTodosDone = todos.every((item) => item.done === true)
 
     if (areAllTodosDone) {
       setIsAllDone(true)
+    } else {
+      setIsAllDone(false)
     }
-
-    console.log(areAllTodosDone, todos.length)
   })
 
   return (
